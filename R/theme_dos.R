@@ -2,7 +2,7 @@ library(ggplot2)
 library(tidyverse)
 
 # THEME FUNCTION
-theme_dos <- function(color = "#99FFFF") {  # Added argument for border color
+theme_dos <- function(color = "#99FFFF") {
   ggplot2::theme(
     # Background
     panel.background = ggplot2::element_rect(fill = "#1C1C1C", color = NA),
@@ -111,18 +111,18 @@ dos_fill <- function() {
 }
 
 # EXAMPLES
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  dosify(geom_point) +
+ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point() +
   ggtitle("DOS Style Plot", subtitle = "Retro vibes in ggplot2") +
   theme_dos() +
   dos_color()
 
-ggplot(mpg, aes(x = displ, y = hwy)) +
+ggplot(mpg, aes(x = displ, y = hwy, fill = class)) +
   geom_col() +
   facet_wrap(~class) +
   ggtitle("DOS Style Faceted Bar Plot", subtitle = "Faceted by Car Class") +
   theme_dos() +
-  dos_color()
+  dos_fill()
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   dosify(geom_violin) +
