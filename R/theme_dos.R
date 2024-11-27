@@ -1,7 +1,7 @@
 library(ggplot2)
 library(tidyverse)
 
-# DOS THEME FUNCTION
+# THEME FUNCTION
 theme_dos <- function(color = "#99FFFF") {  # Added argument for border color
   ggplot2::theme(
     # Background
@@ -83,7 +83,11 @@ theme_dos <- function(color = "#99FFFF") {  # Added argument for border color
   )
 }
 
-# HELPER FUNCTIONS
+# HELPER/COMPANION FUNCTIONS
+dosify <- function(geom_layer, size = 1, fill = "#99FFFF", colour = "#99FFFF", ...) {
+  geom_layer(size = size, fill = fill, colour = colour, ...)
+}
+
 # DOS-Friendly Color Palette
 dos_colors <- c(
   "#99FFFF",  # Light Cyan
@@ -97,29 +101,31 @@ dos_colors <- c(
 )
 
 # Scale Color function for DOS-inspired palette
-scale_color_dos <- function() {
+dos_color <- function() {
   ggplot2::scale_color_manual(values = dos_colors)
 }
 
 # Scale Fill function for DOS-inspired palette
-scale_fill_dos <- function() {
+dos_fill <- function() {
   ggplot2::scale_fill_manual(values = dos_colors)
 }
 
 # EXAMPLES
-ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
-  geom_point() +
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  dosify(geom_point) +
   ggtitle("DOS Style Plot", subtitle = "Retro vibes in ggplot2") +
   theme_dos() +
-  scale_color_dos()
+  dos_color()
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
-  dosify(geom_col) +
+  geom_col() +
   facet_wrap(~class) +
   ggtitle("DOS Style Faceted Bar Plot", subtitle = "Faceted by Car Class") +
-  theme_dos()
+  theme_dos() +
+  dos_color()
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   dosify(geom_violin) +
   ggtitle("DOS Style Violin Plot", subtitle = "Distribution of Highway Mileage by Displacement") +
-  theme_dos()
+  theme_dos() +
+  dos_fill()
